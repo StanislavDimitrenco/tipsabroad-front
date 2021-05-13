@@ -1,14 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-  </div>
+  <Accordion />
 </template>
 
 <script>
-// @ is an alias to /src
+  import Accordion from "@/components/Accordion";
 
-export default {
-  name: 'Home',
+  export default {
+    name: 'Home',
 
-}
+    components: {
+      Accordion,
+    },
+  }
 </script>
