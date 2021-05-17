@@ -1,0 +1,16 @@
+<svg id="tip-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4baf2a;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="12.5" cy="12.5" r="12.5"/>
+  <path id="Tick_icon_" data-name="Tick icon " class="cls-2" d="M358,234.135l-7.352,7.682,0.045,0.048L349.638,243,345,238.161l1.056-1.136,3.539,3.655L356.945,233Z" transform="translate(-339 -225)"/>
+</svg>
