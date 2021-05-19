@@ -157,7 +157,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .img-person-block {
   width: 300px;
@@ -222,13 +222,16 @@ h4.person-name {
   min-height: 1.5rem;
   margin-bottom: 0.125rem;
   padding-top: 10px;
+  cursor: pointer;
 }
 
 
 .custom-radio {
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   opacity: 0;
+  width: 60px;
+  height: 60px;
 }
 
 .custom-radio + label {
@@ -309,6 +312,7 @@ h4.person-name {
   border-radius: 10px 0px 0px 10px;
   border-right: 1px solid #e3e8f0;
   width: 55px;
+  z-index: 0;
 }
 
 </style>

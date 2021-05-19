@@ -1,10 +1,8 @@
 <template>
   <div>
     <Steps v-if="stage === 1"/>
-
-    <div v-if="stage === 2">
-      Оплата успешная
-    </div>
+    <Success v-if="stage === 2"/>
+    <Canceled v-if="stage === 3"/>
   </div>
 
 
@@ -12,6 +10,8 @@
 
 <script>
 import Steps from "@/components/Steps";
+import Success from "@/components/Success";
+import Canceled from "@/components/Canceled";
 
 export default {
   name: 'Home',
@@ -26,11 +26,15 @@ export default {
       const query = new URLSearchParams(window.location.search)
       if (query.get("success")) {
         this.stage = 2
-        console.log(this.stage)
+      }
+      if (query.get("canceled")) {
+        this.stage = 3
       }
   },
   components: {
     Steps,
+    Success,
+    Canceled
   },
 }
 </script>
