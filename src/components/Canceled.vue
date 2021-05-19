@@ -15,7 +15,7 @@
                 aspect-ratio="1"
                 class="rounded-lg"
             />
-            <h4 class="person-name">{{ userName }}</h4>
+            <h4 class="person-name-inset">{{ userName }}</h4>
           </div>
         </div>
         <div class="canceled-block">

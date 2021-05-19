@@ -15,7 +15,7 @@
                 aspect-ratio="1"
                 class="rounded-lg"
             />
-            <h4 class="person-name">{{ userName }}</h4>
+            <h4 class="person-name-inset">{{ userName }}</h4>
           </div>
         </div>
         <div class="completed-block">
@@ -67,38 +67,5 @@ export default {
 };
 </script>
 <style>
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 45px;
-  padding-left: 45px;
-  max-width: 750px;
-  position: relative;
-}
 
-.main-title {
-  font-size: 20px;
-  color: #545454;
-  text-align: center;
-  font-weight: 700;
-  padding-top: 50px;
-  padding-bottom: 40px;
-}
-
-.completed-block {
-  background-color: #edffe7;
-  border: #4cb32b;
-  border-radius: 10px;
-  text-align: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin-bottom: 140px;
-}
-
-.completed-block p {
-  font-size: 14px;
-  font-weight: 700;
-  color: #4cb32b;
-  padding-top: 20px;
-}
 </style>

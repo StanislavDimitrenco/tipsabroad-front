@@ -9,11 +9,11 @@
             aspect-ratio="1"
             class="rounded-lg"
         />
-        <h4 class="person-name">{{ person.name }}</h4>
+        <h4 class="person-name-inset">{{ person.name }}</h4>
       </div>
     </div>
     <div class="row count-tips-block">
-      <div class="col-6 count-tips"
+      <div class="col-6 count-tips pb-0"
            v-for="tip in jsonTips.tips"
            :key="tip.id"
       >
@@ -26,7 +26,7 @@
 
         </div>
       </div>
-      <div class="col-6 count-tips">
+      <div class="col-6 count-tips pb-0">
         <div class="form-check">
           <div class="radio">
             <input class="custom-radio" type="radio" id="you-sum" name="color" value="0">
@@ -57,7 +57,8 @@
         <v-checkbox
             v-model="checkbox"
             label="I agree with term and conditions"
-        ></v-checkbox>
+        >
+        </v-checkbox>
       </div>
     </div>
     <v-btn
@@ -161,13 +162,21 @@ export default {
 
 .img-person-block {
   width: 300px;
-  height: 300px;
+  max-width: 200px;
   margin-left: auto;
   margin-right: auto;
 }
 
+.person-name-inset {
+  font-size: 18px;
+  padding-top: 10px;
+  color: #545454;
+  text-align: center;
+  font-weight: 400;
+}
+
 .big-person-block {
-  padding-bottom: 70px;
+  padding-bottom: 50px;
 }
 
 h4.person-name {
@@ -175,14 +184,15 @@ h4.person-name {
   padding-top: 10px;
   color: #545454;
   text-align: center;
+  font-weight: 400;
 }
 
 .count-tips-block {
-  padding-bottom: 90px;
+  padding-bottom: 30px;
 }
 
 .email-block {
-  padding-bottom: 140px;
+  padding-bottom: 3px;
 }
 
 .email-block label {
@@ -202,7 +212,7 @@ h4.person-name {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
@@ -214,14 +224,13 @@ h4.person-name {
   appearance: none;
   border-radius: 10px;
   border-color: #d7dbe5;
-  height: 60px;
+  height: 45px;
 }
 
 .form-check {
   display: block;
   min-height: 1.5rem;
   margin-bottom: 0.125rem;
-  padding-top: 10px;
   cursor: pointer;
 }
 
@@ -230,8 +239,8 @@ h4.person-name {
   position: absolute;
   z-index: 1;
   opacity: 0;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 }
 
 .custom-radio + label {
@@ -242,11 +251,12 @@ h4.person-name {
   align-items: center;
   user-select: none;
   width: 100%;
-  height: 60px;
+  height: 40px;
   border: 1px solid #e3e8f0;
   border-radius: 10px;
   color: #545454;
-  padding-left: 70px;
+  padding-left: 50px;
+  font-size: 14px;
 }
 
 .custom-radio + label::before {
@@ -265,8 +275,8 @@ h4.person-name {
   background-position: center center;
   background-size: 50% 50%;
   position: absolute;
-  left: 20px;
-  top: 20px;
+  left: 12px;
+  top: 12px;
 }
 
 .custom-radio:not(:disabled):not(:checked) + label:hover::before {
@@ -311,7 +321,7 @@ h4.person-name {
   left: 0px;
   border-radius: 10px 0px 0px 10px;
   border-right: 1px solid #e3e8f0;
-  width: 55px;
+  width: 40px;
   z-index: 0;
 }
 

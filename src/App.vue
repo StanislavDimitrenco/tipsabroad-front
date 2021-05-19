@@ -2,7 +2,7 @@
 
   <v-app class="wrap">
     <v-main>
-      <v-container class="px-10">
+      <v-container class="px-7">
         <router-view/>
       </v-container>
     </v-main>

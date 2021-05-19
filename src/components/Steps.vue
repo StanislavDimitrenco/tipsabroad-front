@@ -49,8 +49,8 @@ export default {
 <style>
 .go-back {
   position: absolute;
-  left: 45px;
-  top: 47px;
+  left: 39px;
+  top: 42px;
 }
 
 .container .btn-green.v-size--x-large {

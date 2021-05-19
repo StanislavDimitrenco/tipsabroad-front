@@ -9,7 +9,7 @@
         >
           <v-expansion-panel-header class="accordion-title">{{ company.name }}</v-expansion-panel-header>
           <v-expansion-panel-content class="px-0">
-            <v-container>
+            <v-container class="px-0 py-0">
               <v-row no-gutters>
                 <v-col
                     v-for="employee in company.employees"
@@ -105,7 +105,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
 .accordion-container:not(:first-child)::after {
   border: none;
 }
@@ -121,19 +121,22 @@ export default {
 }
 
 .accordion-title {
-  height: 60px;
+  height: 32px;
+  min-height: 45px!important;
   font-size: 14px;
   border-radius: 10px;
-  color: #d7dbe5;
+  color: #acb3c3;
   border: 1px solid #d7dbe5;
   background-color: #fff;
 
   background-position: right 20px center;
   margin-bottom: 10px;
 
-  .v-icon {
-    background-image: url("../assets/img/arrow-select.svg");
-  }
+
+}
+
+.theme--light.v-expansion-panels .v-expansion-panel:not(:first-child)::after {
+  display: none;
 }
 
 .person-block {
@@ -144,16 +147,24 @@ export default {
   content: "";
   display: block;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 7px;
+  right: 7px;
   background: url(../assets/img/tip-icon.svg);
-  width: 25px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
   z-index: 10;
+  background-size: cover;
+}
+.v-expansion-panel-header {
+  border-radius: 10px;
 }
 
 .v-item-group {
   width: 100%;
+}
+
+.v-expansion-panel::before {
+  box-shadow: inherit;
 }
 
 </style>
