@@ -105,7 +105,8 @@ export default {
   computed: {
     disabled: {
       get() {
-        return this.tipSize < 1
+        console.log(this.checkbox)
+        return this.tipSize < 1 || !this.checkbox
       }
 
 
