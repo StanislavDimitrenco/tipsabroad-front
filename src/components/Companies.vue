@@ -1,7 +1,7 @@
 <template>
-  <v-row justify="center" class="ml-0 mr-0" >
+  <v-row justify="center" class="ml-0 mr-0 mt-2" >
     <v-item-group >
-      <v-expansion-panels accordion v-model="accordion">
+      <v-expansion-panels accordion v-model="accordion" class="accordion">
         <v-expansion-panel
             class="accordion-container"
             v-for="(company,key) in jsonData.companies"
@@ -155,9 +155,7 @@ export default {
   z-index: 10;
   background-size: cover;
 }
-.v-expansion-panel-header {
-  border-radius: 10px;
-}
+
 
 .v-item-group {
   width: 100%;
@@ -165,6 +163,14 @@ export default {
 
 .v-expansion-panel::before {
   box-shadow: inherit;
+}
+
+.accordion .v-expansion-panel::before {
+  box-shadow: none!important;
+}
+
+.accordion button{
+  border-radius: 10px;
 }
 
 </style>

@@ -30,7 +30,7 @@
         <div class="form-check">
           <div class="radio">
             <input class="custom-radio" type="radio" id="you-sum" name="color" value="0">
-            <label for="you-sum" @click="radioHandler(true, person)">Your sum</label>
+            <label for="you-sum" @click="radioHandler(true, person, 0)">Your sum</label>
 
           </div>
 
@@ -257,6 +257,8 @@ h4.person-name {
   color: #545454;
   padding-left: 50px;
   font-size: 14px;
+  position: relative;
+  z-index: 3;
 }
 
 .custom-radio + label::before {
@@ -277,14 +279,15 @@ h4.person-name {
   position: absolute;
   left: 12px;
   top: 12px;
+
 }
 
 .custom-radio:not(:disabled):not(:checked) + label:hover::before {
-  border-color: d7dbe5;
+  border-color: #d7dbe5;
 }
 
 .custom-radio:not(:disabled):active + label::before {
-  background-color: d7dbe5;
+  background-color: #d7dbe5;
   border-color: #4cb32b;
 }
 

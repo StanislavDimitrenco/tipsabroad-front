@@ -7,14 +7,17 @@ import VueTheMask from 'vue-the-mask'
 
 Vue.use(VueTheMask)
 
-const stripePromise = loadStripe("pk_test_51Is6kaCYCvUjLcqpw0H4G4MwhrunK1haBTZEiFhmIp6sghSPDOf9OjUzBfC6T98Jqy66C1OpZWKCGi5an3amhp1l0090AYxwO2");
+const stripePromise = process.env.NODE_ENV === "production"
+        ? loadStripe("pk_live_51Io3DxAZp7bpKPrU36pNKyzKHz43Q2yagNA26L1oB2FBf4gTUB5IWye9qGBJIUlB6oluYazA7eE0ZqRIPVU4seFP00WJvkR75Y")
+        : loadStripe("pk_test_51Is6kaCYCvUjLcqpw0H4G4MwhrunK1haBTZEiFhmIp6sghSPDOf9OjUzBfC6T98Jqy66C1OpZWKCGi5an3amhp1l0090AYxwO2")
+
 
 const instance = require('axios').default
 
 const axios = instance.create({
   baseURL: `${
       process.env.NODE_ENV === "production"
-          ? "http://example.com:3000"
+          ? "http://api.tipsabroad.com:3000"
           : "http://localhost:3000"
   }`,
 });

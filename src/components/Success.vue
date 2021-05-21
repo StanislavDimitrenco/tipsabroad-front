@@ -67,5 +67,21 @@ export default {
 };
 </script>
 <style>
+.completed-block {
+  background-color: #edffe7;
+  border: #4cb32b;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-bottom: 140px;
+}
+
+.completed-block p {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4cb32b;
+  padding-top: 20px;
+}
 
 </style>
