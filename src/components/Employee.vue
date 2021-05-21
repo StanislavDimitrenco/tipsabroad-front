@@ -51,13 +51,17 @@
     </div>
 
     <div class="email-block">
-      <label for="email">Your e-mail (optional)</label>
+      <label for="email" class="pb-2">Your e-mail (optional)</label>
       <input type="text" class="form-control" placeholder="example@mail.ru" id="email" name="email">
-      <div class="form-check">
+      <div>
         <v-checkbox
             v-model="checkbox"
-            label="I agree with term and conditions"
         >
+          <template v-slot:label>
+            <div>
+              I agree with <a href="#">term and conditions</a>
+            </div>
+          </template>
         </v-checkbox>
       </div>
     </div>
@@ -111,7 +115,7 @@ export default {
     getTipSize: function () {
       this.jsonTips = require('../assets/tip_size.json')
     },
-    useEffect(){
+    useEffect() {
       const query = new URLSearchParams(window.location.search)
       if (query.get("success")) {
         this.success = true
@@ -198,7 +202,6 @@ h4.person-name {
 .email-block label {
   font-size: 14px;
   color: #545454;
-  padding-bottom: 10px;
   display: block;
 }
 
@@ -212,7 +215,7 @@ h4.person-name {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
