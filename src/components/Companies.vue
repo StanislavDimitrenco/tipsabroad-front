@@ -1,65 +1,73 @@
 <template>
-  <v-row justify="center" class="ml-0 mr-0 mt-2" >
-    <v-item-group >
-      <v-expansion-panels accordion v-model="accordion" class="accordion">
-        <v-expansion-panel
-            class="accordion-container"
-            v-for="(company,key) in jsonData.companies"
-            :key="key"
-        >
-          <v-expansion-panel-header class="accordion-title">{{ company.name }}</v-expansion-panel-header>
-          <v-expansion-panel-content class="px-0">
-            <v-container class="px-0 py-0">
-              <v-row no-gutters>
-                <v-col
-                    v-for="employee in company.employees"
-                    :key="employee.id"
-                    cols="4"
-                >
-                  <v-item v-slot="{ active, toggle }">
-                    <v-card
-                        class="pa-2"
-                        flat
-                        @click="toggle"
-                    >
-                      <div class="person-block">
-                        <div
-                            v-if="active"
-                            class="check-icon"
-                        >
+  <div v-if="companyId > 0">
+    <v-row justify="center" class="ml-0 mr-0 mt-2" v-if="company !== 0">
+
+      <v-item-group >
+        <v-expansion-panels accordion v-model="accordion" class="accordion">
+          <v-expansion-panel
+              class="accordion-container"
+              v-for="(dep,key) in company"
+              :key="key"
+          >
+            <v-expansion-panel-header class="accordion-title">{{ dep.name }}</v-expansion-panel-header>
+            <v-expansion-panel-content class="px-0">
+              <v-container class="px-0 py-0">
+                <v-row no-gutters>
+                  <v-col
+                      v-for="employee in dep.employees"
+                      :key="employee.id"
+                      cols="4"
+                  >
+                    <v-item v-slot="{ active, toggle }">
+                      <v-card
+                          class="pa-2"
+                          flat
+                          @click="toggle"
+                      >
+                        <div class="person-block">
+                          <div
+                              v-if="active"
+                              class="check-icon"
+                          >
+                          </div>
+                          <v-img
+                              tile
+                              :src="require(`@/assets/img/${employee.image}`)"
+                              alt=""
+                              aspect-ratio="1"
+                              class="rounded-lg"
+                              @click="addData(employee.id, employee.name, employee.image)"
+                          />
+                          <h4 class="person-name text-center py-2">
+                            {{ employee.name }}
+                          </h4>
                         </div>
-                        <v-img
-                            tile
-                            :src="require(`@/assets/img/${employee.image}`)"
-                            alt=""
-                            aspect-ratio="1"
-                            class="rounded-lg"
-                            @click="addData(employee.id, employee.name, employee.image)"
-                        />
-                        <h4 class="person-name text-center py-2">
-                          {{ employee.name }}
-                        </h4>
-                      </div>
-                    </v-card>
-                  </v-item>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-btn
-          class="mt-3 btn-green"
-          block
-          elevation="2"
-          x-large
-          :disabled="disabled"
-          @click="next"
-      >
-        Next
-      </v-btn>
-    </v-item-group>
-  </v-row>
+                      </v-card>
+                    </v-item>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-btn
+            class="mt-3 btn-green"
+            block
+            elevation="2"
+            x-large
+            :disabled="disabled"
+            @click="next"
+        >
+          Next
+        </v-btn>
+      </v-item-group>
+    </v-row>
+    <div v-if="company === 0">
+      wrong company id
+    </div>
+  </div>
+  <div v-else>dont have company id</div>
+
 </template>
 
 <script>
@@ -74,8 +82,9 @@ export default {
       name: "",
       image: "",
     },
-
+    companyId: 0,
     jsonData: [],
+    company: 0,
     accordion: 0
   }),
   computed: {
@@ -88,19 +97,41 @@ export default {
   },
   methods: {
     next() {
-      this.$emit('next', {alignment: {id: this.employee.id, name: this.employee.name, image: this.employee.image}})
+      this.$emit('next', {alignment: {id: this.employee.id, name: this.employee.name, image: this.employee.image, companyId: this.companyId}})
     },
     getCompanies() {
       this.jsonData = require('../assets/staff.json')
+
+      let arr = this.jsonData.companies
+
+      arr.forEach((company) => {
+        if (company.id === this.companyId) {
+          this.company = company.department
+        }
+      })
+
+
     },
     addData(id, name, image) {
       this.employee.id = id
       this.employee.name = name
       this.employee.image = image
+    },
+    getCompanyId() {
+      const query = new URLSearchParams(window.location.search)
+      const comId = query.get("company_id")
+      if (comId !== "") {
+        this.companyId = Number(comId)
+      } else {
+        this.companyId = 0
+      }
+
     }
   },
   mounted: function () {
+    this.getCompanyId()
     this.getCompanies()
+
   }
 }
 </script>

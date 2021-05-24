@@ -100,12 +100,11 @@ export default {
     tipSize: 0,
     session: {},
     loading: false,
-    success: false
+    success: false,
   }),
   computed: {
     disabled: {
       get() {
-        console.log(this.checkbox)
         return this.tipSize < 1 || !this.checkbox
       }
 
@@ -121,24 +120,22 @@ export default {
       if (query.get("success")) {
         this.success = true
       }
-
     },
     radioHandler(trueFalse, person, tipSize) {
       this.personId = person.id
       this.personName = person.name
       this.personImage = person.image
       this.tipSize = tipSize
-      console.log(this.personName, this.tipSize)
       return this.customSum = trueFalse
     },
     async handleClick() {
       this.loading = true
-      console.log("click")
       const stripe = await this.$stripe
       this.$axios.post('/create-checkout-session', {
-        id: this.personId,
+        user: this.personId,
         name: this.personName,
         image: this.personImage,
+        company_id: this.person.companyId,
         tip: this.tipSize * 100,
 
       }).then(({data}) => {

@@ -2,7 +2,7 @@
   <div>
     <div class="wrapper">
       <div class="container">
-        <a href="/" class="go-back">
+        <a :href="`/?company_id=${companyId}`" class="go-back">
           <img src="@/assets/img/back.svg" alt="back to the future">
         </a>
         <h1 class="main-title">Send tips</h1>
@@ -28,12 +28,13 @@
 </template>
 <script>
 export default {
-  name: 'Success.vue',
+  name: 'Canceled',
 
   data: () => ({
     userName: "",
     userImage: "",
     tipSize: "",
+    companyId: "",
     jsonData: {}
 
   }),
@@ -41,15 +42,26 @@ export default {
     getCompanies() {
       this.jsonData = require('../assets/staff.json')
     },
-    getPerson(id) {
+    getPerson(id, companyId) {
       let arr = this.jsonData.companies
+      console.log(companyId)
+
+      arr.forEach((company) => {
+        if (company.id === companyId) {
+          arr = company.department
+        }
+      })
+
       let name
       let image
-      arr.forEach( (company) => {
-        company.employees.forEach((employee) => {
-          if(employee.id == id) {
-            name = employee.name
-            image = employee.image
+      arr.forEach((department) => {
+        console.log(department)
+
+        department.employees.forEach((employees) => {
+          console.log(employees.id)
+          if (employees.id === id) {
+            name = employees.name
+            image = employees.image
           }
         })
       })
@@ -60,7 +72,8 @@ export default {
   mounted: function () {
     const query = new URLSearchParams(window.location.search)
     this.getCompanies(this.jsonData.companies)
-    this.getPerson(Number(query.get("id")))
+    this.companyId = query.get("company_id")
+    this.getPerson(Number(query.get("user")), Number(this.companyId))
     this.tipSize = query.get("tip") / 100
   }
 };
