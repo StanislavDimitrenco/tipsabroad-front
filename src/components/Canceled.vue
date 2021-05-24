@@ -9,6 +9,7 @@
         <div class="big-person-block">
           <div class="img-person-block">
             <v-img
+                v-if="userImage"
                 tile
                 :src="require(`@/assets/img/${userImage}`)"
                 alt=""
@@ -32,7 +33,7 @@ export default {
 
   data: () => ({
     userName: "",
-    userImage: "",
+    userImage: null,
     tipSize: "",
     companyId: "",
     jsonData: {}

@@ -5,6 +5,7 @@
     "name": "Lux Hotel",
     "department": [
       {
+        "id": 1,
         "name": "Housekeeping",
         "employees": [
           {
@@ -30,6 +31,7 @@
         ]
       },
       {
+        "id": 2,
         "name": "Dining",
         "employees": [
           {
@@ -55,6 +57,7 @@
         ]
       },
       {
+        "id": 4,
         "name": "Dining",
         "employees": [
           {

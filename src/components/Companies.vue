@@ -1,8 +1,8 @@
 <template>
-  <div v-if="companyId > 0">
-    <v-row justify="center" class="ml-0 mr-0 mt-2" v-if="company !== 0">
+  <div v-if="companyId">
+    <v-row justify="center" class="ml-0 mr-0 mt-2" v-if="company">
 
-      <v-item-group >
+      <v-item-group>
         <v-expansion-panels accordion v-model="accordion" class="accordion">
           <v-expansion-panel
               class="accordion-container"
@@ -62,7 +62,7 @@
         </v-btn>
       </v-item-group>
     </v-row>
-    <div v-if="company === 0">
+    <div v-if="!company">
       wrong company id
     </div>
   </div>
@@ -82,10 +82,11 @@ export default {
       name: "",
       image: "",
     },
-    companyId: 0,
+    companyId: null,
+    departmentId: null,
     jsonData: [],
-    company: 0,
-    accordion: 0
+    company: null,
+    accordion: null
   }),
   computed: {
     disabled: {
@@ -97,11 +98,16 @@ export default {
   },
   methods: {
     next() {
-      this.$emit('next', {alignment: {id: this.employee.id, name: this.employee.name, image: this.employee.image, companyId: this.companyId}})
+      this.$emit('next', {
+        alignment: {
+          id: this.employee.id,
+          name: this.employee.name,
+          image: this.employee.image,
+          companyId: this.companyId
+        }
+      })
     },
     getCompanies() {
-      this.jsonData = require('../assets/staff.json')
-
       let arr = this.jsonData.companies
 
       arr.forEach((company) => {
@@ -109,34 +115,47 @@ export default {
           this.company = company.department
         }
       })
-
-
     },
     addData(id, name, image) {
       this.employee.id = id
       this.employee.name = name
       this.employee.image = image
     },
+    getJSON() {
+      this.jsonData = require('../assets/staff.json')
+    },
     getCompanyId() {
       const query = new URLSearchParams(window.location.search)
       const comId = query.get("company_id")
+      const depId = query.get("department_id")
       if (comId !== "") {
         this.companyId = Number(comId)
-      } else {
-        this.companyId = 0
+        this.departmentId = Number(depId)
       }
 
+    },
+    getDepartment() {
+      console.log(this.company.findIndex(({id})=>id === this.departmentId))
+      const departmentIdx = this.company.findIndex(({id})=>id === this.departmentId)
+      if(departmentIdx !== -1) {
+        this.accordion = departmentIdx
+      }
     }
   },
   mounted: function () {
+    this.getJSON()
     this.getCompanyId()
     this.getCompanies()
+    if (this.company) {
+      this.getDepartment()
+    }
+
 
   }
 }
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 .accordion-container:not(:first-child)::after {
   border: none;
 }
@@ -153,7 +172,7 @@ export default {
 
 .accordion-title {
   height: 32px;
-  min-height: 45px!important;
+  min-height: 45px !important;
   font-size: 14px;
   border-radius: 10px;
   color: #acb3c3;
@@ -197,10 +216,10 @@ export default {
 }
 
 .accordion .v-expansion-panel::before {
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 
-.accordion button{
+.accordion button {
   border-radius: 10px;
 }
 
