@@ -71,6 +71,8 @@
 </template>
 
 <script>
+const axios = require('axios')
+
 export default {
   name: "Companies",
   data: () => ({
@@ -107,6 +109,9 @@ export default {
         }
       })
     },
+    status() {
+
+    },
     getCompanies() {
       let arr = this.jsonData.companies
 
@@ -122,7 +127,16 @@ export default {
       this.employee.image = image
     },
     getJSON() {
-      this.jsonData = require('../assets/staff.json')
+      // this.jsonData = require('https://secure.tipsabroad.com/staff.json')
+      axios.get('http://api.tipsabroad.com/static/json/staff.json',  { crossdomain: true })
+          .then(({data}) => {
+            this.jsonData = data
+            console.log(data)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+
     },
     getCompanyId() {
       const query = new URLSearchParams(window.location.search)
@@ -135,9 +149,9 @@ export default {
 
     },
     getDepartment() {
-      console.log(this.company.findIndex(({id})=>id === this.departmentId))
-      const departmentIdx = this.company.findIndex(({id})=>id === this.departmentId)
-      if(departmentIdx !== -1) {
+      console.log(this.company.findIndex(({id}) => id === this.departmentId))
+      const departmentIdx = this.company.findIndex(({id}) => id === this.departmentId)
+      if (departmentIdx !== -1) {
         this.accordion = departmentIdx
       }
     }

@@ -50,21 +50,7 @@
       </div>
     </div>
 
-    <div class="email-block">
-      <label for="email" class="pb-2">Your e-mail (optional)</label>
-      <input type="text" class="form-control" placeholder="example@mail.ru" id="email" name="email">
-      <div>
-        <v-checkbox
-            v-model="checkbox"
-        >
-          <template v-slot:label>
-            <div>
-              I agree with <a href="#">term and conditions</a>
-            </div>
-          </template>
-        </v-checkbox>
-      </div>
-    </div>
+
     <v-btn
         class="mt-3 btn-green"
         block
