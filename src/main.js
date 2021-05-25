@@ -17,7 +17,7 @@ const instance = require('axios').default
 const axios = instance.create({
   baseURL: `${
       process.env.NODE_ENV === "production"
-          ? "https://184.168.125.147:3000"
+          ? "https://api.tipsabroad.com/"
           : "http://localhost:3000"
   }`,
 });
