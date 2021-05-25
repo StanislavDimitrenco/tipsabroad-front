@@ -149,7 +149,7 @@ export default {
     },
     getJSON() {
       return new Promise((resolve, reject) => {
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NODE_ENV === "production") {
           axios.get('https://storage.tipsabroad.com/static/json/staff.json')
               .then(({data}) => {
                 resolve(data)
