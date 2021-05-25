@@ -1,8 +1,6 @@
 <template>
   <div>
     <div v-if="step === 0">
-
-      <MainTitle post-title="Send tips" />
       <Companies v-on:next="setNext"/>
     </div>
     <div v-if="step === 1">
@@ -18,7 +16,6 @@
 
 <script>
 import Companies from "@/components/Companies";
-import MainTitle from "@/components/MainTitle";
 import Employee from "@/components/Employee";
 
 export default {
@@ -41,7 +38,6 @@ export default {
   },
   components: {
     Employee,
-    MainTitle,
     Companies,
   },
 }

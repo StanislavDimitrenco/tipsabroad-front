@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <MainTitle :post-title="person.companyName"/>
     <div class="big-person-block">
       <div class="img-person-block">
         <v-img
@@ -70,6 +71,8 @@
 
 <script>
 const axios = require('axios')
+
+import MainTitle from "@/components/MainTitle";
 
 export default {
   name: "Employee",
@@ -160,6 +163,9 @@ export default {
     }
 
 
+  },
+  components: {
+    MainTitle
   },
   mounted() {
     this.getTipSize().then(data => {

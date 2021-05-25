@@ -5,7 +5,7 @@
         <a :href="`/?company_id=${companyId}`" class="go-back">
           <img src="@/assets/img/back.svg" alt="back to the future">
         </a>
-        <h1 class="main-title">Send tips</h1>
+        <h1 class="main-title">{{companyName}}</h1>
         <div class="big-person-block">
           <div class="img-person-block">
             <v-img
@@ -38,6 +38,7 @@ export default {
     userImage: "",
     tipSize: "",
     companyId: "",
+    companyName: "",
     jsonData: {}
 
   }),
@@ -71,6 +72,7 @@ export default {
 
       arr.forEach((company) => {
         if (company.id === companyId) {
+          this.companyName = company.name
           arr = company.department
         }
       })
