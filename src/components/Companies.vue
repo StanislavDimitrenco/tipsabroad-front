@@ -32,7 +32,7 @@
                           </div>
                           <v-img
                               tile
-                              :src="require(`@/assets/img/${employee.image}`)"
+                              :src="require(`${baseImgUrl}${employee.image}`)"
                               alt=""
                               aspect-ratio="1"
                               class="rounded-lg"
@@ -96,7 +96,15 @@ export default {
       get: function () {
         return this.employee.id === "";
       }
+    },
+    baseImgUrl() {
+      if(process.env.NODE_ENV === "production") {
+        return "https://api.tipsabroad.com/static/img/"
+      } else {
+        return "../assets/img/"
+      }
     }
+
   },
   methods: {
     next() {
@@ -108,9 +116,6 @@ export default {
           companyId: this.companyId
         }
       })
-    },
-    status() {
-
     },
     getCompanies() {
       let arr = this.jsonData.companies
@@ -127,15 +132,21 @@ export default {
       this.employee.image = image
     },
     getJSON() {
-      // this.jsonData = require('https://secure.tipsabroad.com/staff.json')
-      axios.get('https://api.tipsabroad.com/static/json/staff.json')
-          .then(({data}) => {
-            this.jsonData = data
-            console.log(data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+      return new Promise((resolve, reject )=> {
+        if (process.env.NODE_ENV === "production") {
+        axios.get('https://api.tipsabroad.com/static/json/staff.json')
+            .then(({data}) => {
+              resolve(data)
+            })
+            .catch(function (error) {
+              console.log(error)
+              reject(error)
+            })
+        } else {
+          resolve(require('../assets/staff.json'))
+        }
+      })
+
 
     },
     getCompanyId() {
@@ -157,12 +168,15 @@ export default {
     }
   },
   mounted: function () {
-    this.getJSON()
-    this.getCompanyId()
-    this.getCompanies()
-    if (this.company) {
-      this.getDepartment()
-    }
+    this.getJSON().then(data => {
+      this.jsonData = data
+      this.getCompanyId()
+      this.getCompanies()
+      if (this.company) {
+        this.getDepartment()
+      }
+    })
+
 
 
   }
