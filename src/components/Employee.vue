@@ -102,7 +102,7 @@ export default {
     getTipSize() {
       return new Promise((resolve, reject) => {
         if (process.env.NODE_ENV === "production") {
-          axios.get('https://api.tipsabroad.com/static/json/tip_size.json')
+          axios.get('https://storage.tipsabroad.com/static/json/tip_size.json')
               .then(({data}) => {
                 resolve(data)
               })
