@@ -128,7 +128,7 @@ export default {
     },
     getJSON() {
       // this.jsonData = require('https://secure.tipsabroad.com/staff.json')
-      axios.get('http://api.tipsabroad.com/static/json/staff.json',  { crossdomain: true })
+      axios.get('http://api.tipsabroad.com/static/json/staff.json')
           .then(({data}) => {
             this.jsonData = data
             console.log(data)
