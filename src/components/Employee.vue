@@ -4,7 +4,7 @@
       <div class="img-person-block">
         <v-img
             tile
-            :src="require(`@/assets/img/${person.image}`)"
+            :src=" baseImgUrl(person.image)"
             alt=""
             aspect-ratio="1"
             class="rounded-lg"
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+const axios = require('axios')
 
 export default {
   name: "Employee",
@@ -98,13 +99,34 @@ export default {
     }
   },
   methods: {
-    getTipSize: function () {
-      this.jsonTips = require('../assets/tip_size.json')
+    getTipSize() {
+      return new Promise((resolve, reject) => {
+        if (process.env.NODE_ENV === "production") {
+          axios.get('https://api.tipsabroad.com/static/json/tip_size.json')
+              .then(({data}) => {
+                resolve(data)
+              })
+              .catch(function (error) {
+                console.log(error)
+                reject(error)
+              })
+        } else {
+          resolve(require('../assets/tip_size.json'))
+        }
+      })
     },
+
     useEffect() {
       const query = new URLSearchParams(window.location.search)
       if (query.get("success")) {
         this.success = true
+      }
+    },
+    baseImgUrl(img) {
+      if (process.env.NODE_ENV === "production") {
+        return "https://api.tipsabroad.com/static/img/" + img
+      } else {
+        return require("@/assets/img/" + img)
       }
     },
     radioHandler(trueFalse, person, tipSize) {
@@ -140,8 +162,9 @@ export default {
 
   },
   mounted() {
-    this.getTipSize()
-    console.log(this.person)
+    this.getTipSize().then(data => {
+      this.jsonTips = data
+    })
   }
 }
 </script>

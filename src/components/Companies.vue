@@ -32,7 +32,7 @@
                           </div>
                           <v-img
                               tile
-                              :src="require(`${baseImgUrl}${employee.image}`)"
+                              :src="baseImgUrl(employee.image)"
                               alt=""
                               aspect-ratio="1"
                               class="rounded-lg"
@@ -96,13 +96,6 @@ export default {
       get: function () {
         return this.employee.id === "";
       }
-    },
-    baseImgUrl() {
-      if(process.env.NODE_ENV === "production") {
-        return "https://api.tipsabroad.com/static/img/"
-      } else {
-        return "../assets/img/"
-      }
     }
 
   },
@@ -116,6 +109,13 @@ export default {
           companyId: this.companyId
         }
       })
+    },
+    baseImgUrl(img) {
+      if (process.env.NODE_ENV === "production") {
+        return "https://api.tipsabroad.com/static/img/" + img
+      } else {
+        return require("@/assets/img/" + img)
+      }
     },
     getCompanies() {
       let arr = this.jsonData.companies
@@ -146,8 +146,6 @@ export default {
           resolve(require('../assets/staff.json'))
         }
       })
-
-
     },
     getCompanyId() {
       const query = new URLSearchParams(window.location.search)

@@ -11,7 +11,7 @@
             <v-img
                 v-if="userImage"
                 tile
-                :src="require(`@/assets/img/${userImage}`)"
+                :src="baseImgUrl(userImage)"
                 alt=""
                 aspect-ratio="1"
                 class="rounded-lg"
@@ -27,7 +27,10 @@
   </div>
 </template>
 <script>
+const axios = require('axios')
+
 export default {
+
   name: 'Canceled',
 
   data: () => ({
@@ -40,7 +43,27 @@ export default {
   }),
   methods: {
     getCompanies() {
-      this.jsonData = require('../assets/staff.json')
+      return new Promise((resolve, reject )=> {
+        if (process.env.NODE_ENV === "production") {
+          axios.get('https://api.tipsabroad.com/static/json/staff.json')
+              .then(({data}) => {
+                resolve(data)
+              })
+              .catch(function (error) {
+                console.log(error)
+                reject(error)
+              })
+        } else {
+          resolve(require('../assets/staff.json'))
+        }
+      })
+    },
+    baseImgUrl(img) {
+      if (process.env.NODE_ENV === "production") {
+        return "https://api.tipsabroad.com/static/img/" + img
+      } else {
+        return require("@/assets/img/" + img)
+      }
     },
     getPerson(id, companyId) {
       let arr = this.jsonData.companies
@@ -71,10 +94,12 @@ export default {
   },
   mounted: function () {
     const query = new URLSearchParams(window.location.search)
+    this.getCompanies().then(data => {
+      this.jsonData = data
     this.getCompanies(this.jsonData.companies)
     this.companyId = query.get("company_id")
     this.getPerson(Number(query.get("user")), Number(this.companyId))
-    this.tipSize = query.get("tip") / 100
+    this.tipSize = query.get("tip") / 100})
   }
 };
 </script>
