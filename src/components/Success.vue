@@ -45,7 +45,7 @@ export default {
     getCompanies() {
       return new Promise((resolve, reject )=> {
         if (process.env.NODE_ENV === "production") {
-          axios.get('https://api.tipsabroad.com/static/json/staff.json')
+          axios.get('https://storage.tipsabroad.com/static/json/staff.json')
               .then(({data}) => {
                 resolve(data)
               })
@@ -60,7 +60,7 @@ export default {
     },
     baseImgUrl(img) {
       if (process.env.NODE_ENV === "production") {
-        return "https://api.tipsabroad.com/static/img/" + img
+        return "https://storage.tipsabroad.com/static/img/" + img
       } else {
         return require("@/assets/img/" + img)
       }
