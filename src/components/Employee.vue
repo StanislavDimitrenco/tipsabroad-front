@@ -11,9 +11,29 @@
             class="rounded-lg"
         />
         <h4 class="person-name-inset">{{ person.name }}</h4>
+        <div class="stars text-center pt-3">
+          <v-rating
+              v-model="rating"
+              background-color="#999"
+              length="5"
+              hover
+              color="#D09B00"
+              size="30"
+          ></v-rating>
+        </div>
       </div>
     </div>
     <div class="row count-tips-block">
+      <div class="col-12 comments">
+        <v-textarea
+            outlined
+            name="input-7-4"
+            rows=3
+            label="Please leave feedback... (optional)"
+            v-model="comment"
+            auto-grow
+        ></v-textarea>
+      </div>
       <div class="col-6 count-tips pb-0"
            v-for="tip in jsonTips.tips"
            :key="tip.id"
@@ -91,6 +111,8 @@ export default {
     session: {},
     loading: false,
     success: false,
+    comment: '',
+    rating: 0,
   }),
   computed: {
     disabled: {
@@ -142,12 +164,16 @@ export default {
     async handleClick() {
       this.loading = true
       const stripe = await this.$stripe
+
+
       this.$axios.post('/create-checkout-session', {
         user: this.personId,
         name: this.personName,
         image: this.personImage,
         company_id: this.person.companyId,
         tip: this.tipSize * 100,
+        rating: this.rating,
+        comment: this.comment
 
       }).then(({data}) => {
         const result = stripe.redirectToCheckout({
@@ -178,14 +204,14 @@ export default {
 <style>
 
 .img-person-block {
-  width: 300px;
-  max-width: 200px;
+  width: 260px;
+  max-width: 160px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .person-name-inset {
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 10px;
   color: #545454;
   text-align: center;
@@ -325,6 +351,9 @@ h4.person-name {
   background-color: #e9ecef;
 }
 
+.stars button {
+  padding: 0.04em!important;
+}
 
 .radio {
   position: relative;
@@ -343,5 +372,18 @@ h4.person-name {
   width: 40px;
   z-index: 0;
 }
+
+.comments .v-text-field__details {
+  display: none;
+}
+
+.comments label {
+
+}
+
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+  color: rgba(0, 0, 0, 9);
+}
+
 
 </style>
